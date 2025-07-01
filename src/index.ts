@@ -36,10 +36,10 @@ export default {
         const response = new Response(liveTxtContent, {
           headers: { 
             'Content-Type': 'text/plain; charset=utf-8',
-            'Cache-Control': 'public, max-age=86400' // Cache for 24 hours (24 * 60 * 60 seconds)
+            'Cache-Control': 'public, max-age=3600' // Cache for 1 hours (60 * 60 seconds)
           },
         });
-
+        ctx.waitUntil(cache.put(cacheKey, response.clone()));
         return response;
 
       } catch (error: any) {
@@ -50,12 +50,6 @@ export default {
 
     // Handle / or no path route
     if (url.pathname === '/' || url.pathname === '') {
-      let response = await cache.match(cacheKey); // Try to find a cached response
-
-      if (response) {
-        console.log('Serving / from cache.');
-        return response; // Return cached response if found
-      }
       console.log('Fetching / and caching.');
       try {
         // Parse MAPS (k1=v1,k2=v2 format)
@@ -136,9 +130,6 @@ export default {
             'Cache-Control': 'public, max-age=1800' // Cache for (30 * 60 seconds)
           },
         });
-
-        // Store the response in cache
-        ctx.waitUntil(cache.put(cacheKey, response.clone()));
 
         // Store the response in cache
         return response;

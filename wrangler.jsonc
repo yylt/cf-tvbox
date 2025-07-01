@@ -27,7 +27,10 @@
 	 * Environment Variables
 	 * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
 	 */
-	//"vars": { "MY_VARIABLE": "production_value"},
+	"vars": { "JSON_URL": "https://raw.githubusercontent.com/yoursmile66/TVBox/main/XC.json",
+	 "LIVETXT_URL": "https://raw.githubusercontent.com/yylt/cf-tvbox/main/lives/cu_cd.txt",
+	 "MAPS": "公众号=豆瓣推荐, kanbot=爱看, Anime=anim, 声小说=有声小说, Mp4=mp4, 本接口免费=豆瓣推荐, 达达=达达, 苹果=苹果, 素白白=素白, TVB云播=TVB, 小纸条=纸条",
+	 "REMOVES": "ED3000, 盘, 玩偶, 公众号, XYQ, 88, 酷奇, RKAN, 裙, 墙外"},
 	/**
 	 * Note: Use secrets to store sensitive data.
 	 * https://developers.cloudflare.com/workers/configuration/secrets/
