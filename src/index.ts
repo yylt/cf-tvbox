@@ -62,11 +62,9 @@ export default {
             }
           });
         }
-        console.log('Parsed Maps:', maps);
 
         // Parse REMOVE (k1,k2 format)
         const remove: string[] = env.REMOVES ? env.REMOVES.split(',').map(item => item.trim()) : [];
-        console.log('Parsed Remove:', remove);
 
         // Fetch JSON data from env.jsonurl
         const jsonResponse = await fetch(env.JSON_URL);
@@ -82,6 +80,9 @@ export default {
           if (data.ads !== undefined) {
             delete data.ads;
           }
+          if (data.logo !== undefined) {
+            delete data.logo;
+          }
         }
         // Process 'sites' list
         if (data && Array.isArray(data.sites)) {
@@ -92,11 +93,10 @@ export default {
               site.name = site.name.replace(/^[^a-zA-Z0-9\u4e00-\u9fff\s\.\-_()\[\]{}\|]*([\s\S]*)$/, '$1').trim();
               // Split by '┃' and take the last part
               site.name = site.name.split('┃', 1).pop() || site.name;
-
               // Apply maps
               for (const key in maps) {
                 if (site.name.includes(key)) {
-                  console.log(`name: ${site.name} find key: ${key}`);
+                  console.log(`name: ${site.name} replace by newName: ${maps[key]}`);
                   site.name = maps[key];
                   break;
                 }
